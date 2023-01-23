@@ -1,24 +1,8 @@
 use std::collections::HashMap;
 use std::fs;
 
-// A - Rock
-// B - Paper
-// C - Scissors
-//
-// X - Rock
-// Y - Paper
-// Z - Scissors
-//
-// Rock - 1
-// Paper - 2
-// Scissors - 3
-//
-// lost - 0
-// draw - 3
-// win - 6
-
 fn main() {
-    let scores = HashMap::from([
+    let scores_part1 = HashMap::from([
         ("AX", 4),
         ("AY", 8),
         ("AZ", 3),
@@ -29,11 +13,27 @@ fn main() {
         ("CY", 2),
         ("CZ", 6),
     ]);
+    let scores_part2 = HashMap::from([
+        ("AX", 3),
+        ("AY", 4),
+        ("AZ", 8),
+        ("BX", 1),
+        ("BY", 5),
+        ("BZ", 9),
+        ("CX", 2),
+        ("CY", 6),
+        ("CZ", 7),
+    ]);
     let path: &str = "data.txt";
     let data = fs::read_to_string(path).expect(&format!("Failed to load {}", path));
-    let count: i32 = data
-        .split("\n")
-        .map(|row| scores.get(row.replace(" ", "").as_str()).unwrap_or(&0))
-        .sum();
-    println!("Total count: {}", count)
+    let part_1 = calculate_score(&data, &scores_part1);
+    let part_2 = calculate_score(&data, &scores_part2);
+    println!("Total count: {}", part_1);
+    println!("Total count: {}", part_2);
+}
+
+fn calculate_score(data: &String, hash: &HashMap<&str, i32>) -> i32 {
+    data.split("\n")
+        .map(|row| hash.get(row.replace(" ", "").as_str()).unwrap_or(&0))
+        .sum()
 }
