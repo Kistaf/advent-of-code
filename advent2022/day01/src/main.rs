@@ -4,6 +4,8 @@ fn main() {
     // Read the entirety of the file at path specified
     let path: &str = "data.txt";
     let data = fs::read_to_string(path).expect(&format!("Failed to load {}", path));
+    
+
 
     // split by double newline
     let counts = data.split("\n\n").map(|rows| -> usize {

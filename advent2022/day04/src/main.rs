@@ -1,14 +1,12 @@
-use std::fs;
+use aoclib::read_lines;
+
 fn main() {
-    let path: &str = "data.txt";
-    let data = fs::read_to_string(path).expect(&format!("Failed to load {}", path));
+    let lines = read_lines("data.txt");
+    // let path: &str = "data.txt";
+    // let data = fs::read_to_string(path).expect(&format!("Failed to load {}", path));
     let mut occurences_part1: i32 = 0;
     let mut occurences_part2: i32 = 0;
-    for line in data.split("\n") {
-        if line.is_empty() {
-            break;
-        }
-
+    for line in lines {
         // Extract each half and convert their respective ranges to individual i32's in tuple
         // format using Vec
         let ranges = line
